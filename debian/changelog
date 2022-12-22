@@ -1,0 +1,347 @@
+powermgmt-base (1.36) unstable; urgency=medium
+
+  * Accept "Wireless" as AC; present in some non-mainline drivers.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Sat, 20 Jul 2019 18:03:39 +0200
+
+powermgmt-base (1.35) unstable; urgency=medium
+
+  * Drop /sbin/{apm,acpi}_available -- not used by anything anymore.
+  * dh 12.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Sun, 14 Jul 2019 02:39:55 +0200
+
+powermgmt-base (1.34) unstable; urgency=medium
+
+  * Use https for d/copyright format (Ondřej Nový).
+  * Fix handling of power sources whose sysfs name includes a space
+    (Roman Shipovskij); closes: #927668, LP#1816404.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Sun, 21 Apr 2019 02:53:59 +0200
+
+powermgmt-base (1.33) unstable; urgency=medium
+
+  * Add some technical documentation.
+  * Drop pre-pleistocene Replaces.
+  * Multi-Arch: foreign.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Tue, 20 Mar 2018 14:19:42 +0100
+
+powermgmt-base (1.32) unstable; urgency=medium
+
+  * New maintainer.  (Closes: #829683)
+  * Redo the packaging using dh.
+  * Rewrite the copyright file.
+  * Drop ancient upstream changelog and README.Debian.
+  * Consider USB power to be AC (despite being DC...).  (Closes: LP#1526960)
+  * Same for Apple charging bricks (untested).
+  * Unbreak APM support (untested) — still available in i386 kernels.
+  * But don't try to create APM devices — there's udev, and the fallback
+    code was broken anyway.
+  * Drop removal of pre-2006 conffiles.
+  * Man page and description updates.
+  * Move sbin manpages to section 8.  (Closes: #476403)
+  * VCS at Salsa.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Wed, 14 Mar 2018 01:54:43 +0100
+
+powermgmt-base (1.31+nmu1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Made the package architecture-all by rewriting it in shell scripts.
+  * debian/control: stop depending on makedev, udev and kmod since it is not
+    actually useful. (Closes: #666512, #684105, #681181)
+
+ -- Marco d'Itri <md@linux.it>  Thu, 01 May 2014 17:39:14 +0200
+
+powermgmt-base (1.31) unstable; urgency=low
+
+  * debian/control: Remove dependency on modutils.
+  * debian/powermgmt-base.postinst: Don't use /sbin/MAKEDEV.
+    (closes: Bug#449049)
+  * on_ac_power: Use /sys/class/power_supply if present on *all* systems,
+    not just acpi systems, as this should be the preferred abstraction on
+    all platforms.  LP: #321219.  (closes: Bug#555905)
+  * debian/control: Reverse order of udev and makedev.
+    (closes: Bug#546879)
+  * debian/control: Bump standards-version (no changes).
+  * debian/copyright: Update GPL reference to include version.
+
+ -- Chris Hanson <cph@debian.org>  Wed, 02 Dec 2009 01:33:15 -0800
+
+powermgmt-base (1.30+nmu1) unstable; urgency=low
+
+  * NMU
+  * on_ac_power: Use /sys/class/power_supply on 2.6.25+ systems where
+    /proc/acpi/ac_adaptor is no longer present. Closes: #473629
+    (Patch by Vefa Bicakci.)
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 01 Sep 2008 13:27:22 -0400
+
+powermgmt-base (1.30) unstable; urgency=low
+
+  * debian/control: bump standards-version (no changes).
+  * Use /sbin/MAKEDEV rather than /dev/MAKEDEV.  (closes: Bug#449049)
+
+ -- Chris Hanson <cph@debian.org>  Sun, 17 Feb 2008 15:43:30 -0500
+
+powermgmt-base (1.29) unstable; urgency=low
+
+  * Fix MAKEDEV reference to work when makedev package not installed.
+    (closes: Bug#387943)
+
+ -- Chris Hanson <cph@debian.org>  Sun, 17 Sep 2006 14:33:14 -0400
+
+powermgmt-base (1.28) unstable; urgency=low
+
+  [requested by Marco d'Itri:]
+  * debian/control: change "makedev" dependency to "makedev|udev"
+  * debian/powermgmt-base.postrm: removed
+  * debian/powermgmt-base.postinst: removed devfs stuff
+
+  [other:]
+  * debian/compat, debian/control: bump to version 5
+
+ -- Chris Hanson <cph@debian.org>  Fri,  8 Sep 2006 22:04:59 -0400
+
+powermgmt-base (1.27) unstable; urgency=low
+
+  * on_ac_power must use explicit /sbin/ prefixes to refer to *_available,
+    since /sbin isn't normally on the path.  (closes: Bug#383981)
+
+ -- Chris Hanson <cph@debian.org>  Mon, 21 Aug 2006 09:13:31 -0400
+
+powermgmt-base (1.26) unstable; urgency=low
+
+  * Make /usr/bin/on_ac_power be a symlink to the new location in /sbin,
+    for backwards compatibility.
+
+ -- Chris Hanson <cph@debian.org>  Thu, 17 Aug 2006 00:15:54 -0400
+
+powermgmt-base (1.25) unstable; urgency=low
+
+  * Use cdbs for debian/rules.
+  * Move executables to /sbin.  (closes: Bug#367894)
+  * Eliminate obsolete devfs files.  (closes: Bug#374309)
+  * Add missing dependency for depmod.  (closes: Bug#375886)
+
+ -- Chris Hanson <cph@debian.org>  Mon, 14 Aug 2006 22:30:20 -0400
+
+powermgmt-base (1.24) unstable; urgency=low
+
+  * debian/powermgmt-base.postinst: eliminate remnants of now-unused
+    debconf calls.  (closes: Bug#358393)
+  * Don't install /etc/modprobe.d/apm.  (closes: Bug#349056)
+  * Don't handle udev specially.  (closes: Bug#349058)
+  * Add "#include <stdlib.h>" to C programs to provide declaration of
+    exit().
+
+ -- Chris Hanson <cph@debian.org>  Thu, 23 Mar 2006 00:40:35 -0500
+
+powermgmt-base (1.23) unstable; urgency=low
+
+  * Add support for module-init-tools.
+    (closes: Bug#295747)
+  * Apply patch to eliminate uninteresting log messages.
+    (closes: Bug#260976)
+  * Eliminate unused debconf files .template and .config.
+    (closes: Bug#338137, Bug#264610, Bug#271184, Bug#308462, Bug#317122,
+    Bug#332362)
+  * Generate error if any arguments are given to acpi_available or
+    apm_available.
+    (closes: Bug#325236)
+  * Document APM and ACPI acronyms on relevant man pages.
+    (closes: Bug#256761, Bug#261573)
+  * Don't create APM device if udev controls /dev.
+  * Update FSF address.
+  * Bump standards-version (no changes).
+
+ -- Chris Hanson <cph@debian.org>  Tue, 3 Jan 2006 01:37:21 -0500
+
+powermgmt-base (1.22) unstable; urgency=low
+
+  From Thom May <thom@ubuntu.com>:
+
+  * Ensure on_ac_power works correctly on desktop G4/G5 systems.
+    (closes: Bug#295932)
+
+ -- Chris Hanson <cph@debian.org>  Thu, 31 Mar 2005 15:27:16 -0500
+
+powermgmt-base (1.21) unstable; urgency=low
+
+  * New Turkish translation.  (closes: Bug#249127)
+
+ -- Chris Hanson <cph@debian.org>  Mon, 7 Jun 2004 09:34:44 -0400
+
+powermgmt-base (1.20) unstable; urgency=low
+
+  * Don't use debconf to inform user about creation of APM device; just
+    use echo.  Also, pass "-v" to MAKEDEV so that the specific file name
+    is shown.  (closes: Bug#240229)
+
+ -- Chris Hanson <cph@debian.org>  Sun, 28 Mar 2004 21:18:08 -0500
+
+powermgmt-base (1.19) unstable; urgency=low
+
+  * Acknowledge NMU.
+    (closes: Bug#228902, Bug#211907, Bug#216374, Bug#233573)
+  * Reword the debconf template into something resembling English.
+    (closes: Bug#215032)
+  * Don't ask for permission to create APM BIOS device; just do it.
+    (closes: Bug#215963)
+
+ -- Chris Hanson <cph@debian.org>  Wed, 24 Mar 2004 16:13:25 -0500
+
+powermgmt-base (1.18) unstable; urgency=low
+
+  * NMU. (I sent a mail cph ago, but his mail server looks in trouble?)
+  * Apply Spanish, Japanese, Portugal, Danish po
+    (Fixed: Bug#228902, Bug#211907, Bug#216374, Bug#233573)
+
+ -- Kenshi Muto <kmuto@debian.org>  Sun, 14 Mar 2004 15:41:46 +0900
+
+powermgmt-base (1.17) unstable; urgency=low
+
+  * Add "debian/po/fr.po".  (Closes: Bug#211272)
+
+ -- Chris Hanson <cph@debian.org>  Wed, 17 Sep 2003 11:59:54 -0400
+
+powermgmt-base (1.16) unstable; urgency=low
+
+  * Grumble -- no changes, just rebuild in Debian native format.
+
+ -- Chris Hanson <cph@debian.org>  Fri, 5 Sep 2003 13:35:43 -0400
+
+powermgmt-base (1.15) unstable; urgency=low
+
+  * Use dh_installmodules --name to simplify rules file.
+    (closes: Bug#206853)
+  * Use po_debconf for templates.  (closes: Bug#208067)
+  * Standards version 3.6.1 (no changes).
+
+ -- Chris Hanson <cph@debian.org>  Fri, 5 Sep 2003 13:30:55 -0400
+
+powermgmt-base (1.14) unstable; urgency=low
+
+  * Fix problem with postinst that occurs with non-linux systems.
+    (closes: Bug#189131)
+
+ -- Chris Hanson <cph@debian.org>  Thu, 17 Apr 2003 00:25:33 -0400
+
+powermgmt-base (1.13) unstable; urgency=low
+
+  * Fix typo in acpi_available(1).  (closes: Bug#184984)
+  * Update standards version to 3.5.9 (no changes).
+
+ -- Chris Hanson <cph@debian.org>  Fri, 4 Apr 2003 23:09:09 -0500
+
+powermgmt-base (1.12) unstable; urgency=low
+
+  * Make sure source file is properly cleaned.
+    (closes: Bug#171052)
+  * _Really_ Update to standards version 3.5.8.
+    (closes: Bug#171053)
+
+ -- Chris Hanson <cph@debian.org>  Thu, 28 Nov 2002 10:34:03 -0500
+
+powermgmt-base (1.11) unstable; urgency=low
+
+  * Fix typo in "debian/powermgmt-base.dirs".  (closes: Bug#170264)
+  * Update to standards version 3.5.8.  (No changes.)
+
+ -- Chris Hanson <cph@debian.org>  Sat, 23 Nov 2002 23:17:59 -0500
+
+powermgmt-base (1.10) unstable; urgency=low
+
+  * Add tweak to support APM version number on 2.5 kernel series.
+    (closes: Bug#167354)
+
+ -- Chris Hanson <cph@debian.org>  Fri, 1 Nov 2002 15:59:46 -0500
+
+powermgmt-base (1.9) unstable; urgency=low
+
+  * Add code to on_ac_power to work with /proc/pmu on powerpc systems.
+    (closes: Bug#163357)
+  * Rewrite on_ac_power to handle multiple AC adapters more reasonably.
+    This works on my machine with a single adapter; please check this on
+    multi-adapter machines.  (closes: Bug#152666)
+  * Move #DEBHELPER# line up to beginning of postrm to work around bad
+    interaction between debhelper and debconf.  (closes: Bug#163662)
+  * Update to standards version 3.5.7.
+
+ -- Chris Hanson <cph@debian.org>  Tue, 15 Oct 2002 15:01:46 -0400
+
+powermgmt-base (1.8) unstable; urgency=low
+
+  * Add code to detect AC adapters using newer ACPI patches.
+    (closes: Bug#145583)
+
+ -- Chris Hanson <cph@debian.org>  Sat, 4 May 2002 22:23:15 -0400
+
+powermgmt-base (1.7) unstable; urgency=low
+
+  * New maintainer.
+  * Rewrite top-level Makefile to account for use of CVS, and to integrate
+    with my build scripts.
+
+ -- Chris Hanson <cph@debian.org>  Sat, 4 May 2002 22:10:50 -0400
+
+powermgmt-base (1.6) unstable; urgency=medium
+
+  * Tweak postinst
+  * Add dependency on makedev (Closes: #144145)
+
+ -- Thomas Hood <jdthood@yahoo.co.uk>  Fri, 22 Apr 2002 21:22:15 -0400
+
+powermgmt-base (1.5) unstable; urgency=medium
+
+  * Use debconf to ask whether to MAKEDEV the special device file
+  * Use the correct MAKEDEV identifier for the apm_bios device file
+  * Notify user that MAKEDEVving will reset perms to distro defaults
+
+ -- Thomas Hood <jdthood@thanatos.toad.net>  Thu, 11 Apr 2002 17:15:37 -0400
+
+powermgmt-base (1.4) unstable; urgency=low
+
+  * postinst: Create apm_bios special device file if requested and required
+  * Add etc/devfs/conf.d/apm
+
+ -- Thomas Hood <jdthood@yahoo.co.uk>  Wed,  8 Apr 2002 20:30:03 -0500
+
+powermgmt-base (1.3) unstable; urgency=high
+
+  * Fix recognition of ACPI in on_ac_power (Closes: #140897)
+
+ -- Thomas Hood <jdthood@yahoo.co.uk>  Tue,  2 Apr 2002 06:03:33 -0500
+
+powermgmt-base (1.2) unstable; urgency=high
+
+  * Remove superfluous "${misc:Depends}," from control file.
+    Its presence caused build failure on mips arch. (Closes: #140658)
+
+ -- Thomas Hood <jdthood@yahoo.co.uk>  Sun, 31 Mar 2002 06:55:13 -0500
+
+powermgmt-base (1.1) unstable; urgency=high
+
+  * Fix rules so that package will build on non-i386 arches
+    (Closes: #140024)
+
+ -- Thomas Hood <jdthood@yahoo.co.uk>  Tue, 26 Mar 2002 19:52:57 -0500
+
+powermgmt-base (1.0) unstable; urgency=high
+
+  * New package (Closes: #137915)
+  * Get on_ac_power from apmd
+  * Patch on_ac_power (Closes: #101773)
+  * Add apm_available and acpi_available
+  * Change on_ac_power to use apm_available
+  * Correct comment at top of on_ac_power
+  * Add "set -e" to on_ac_power
+  * Change exit status of on_ac_power from 0 to 255 in the event
+    that the power status could not be determined, and eliminate
+    printing of battery charge for exit status 1.
+  * Add END test to awk script in on_ac_power to return 255 when
+    the contents of /proc/apm are unrecognized.
+  * Derive /etc/modutils/apm from apmd's /etc/modutils/apmd
+
+ -- Thomas Hood <jdthood@yahoo.co.uk>  Wed, 13 Mar 2002 23:00:00 -0500

@@ -1,0 +1,27 @@
+Source: powermgmt-base
+Section: utils
+Priority: optional
+Maintainer: Adam Borowski <kilobyte@angband.pl>
+Build-Depends: debhelper-compat (= 12)
+Rules-Requires-Root: no
+Standards-Version: 4.4.0
+Vcs-Git: https://salsa.debian.org/debian/powermgmt-base.git
+Vcs-Browser: https://salsa.debian.org/debian/powermgmt-base.git
+
+Package: powermgmt-base
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Multi-Arch: foreign
+Description: common utils for power management
+ This package ships "on_ac_power" which lets you determine whether
+ the system is powered from battery or an abundant supply.  It's
+ recommended to use this tool over a simple sysfs check,
+ ConditionACPower or other ad-hoc methods which notoriously fail to
+ account for unobvious quirks, both old and new.
+
+# Checking if /sys/class/power_supply/ac/online is 1 fails to account
+# for multiple power supplies and all the rest; systemd doesn't know
+# about PMU (Apple Powerbooks), APM (old x86) and USB* (various arm
+# devices); various cargo-culted scripts are much, much worse.
+#
+# And even this tool is far from being adequate.

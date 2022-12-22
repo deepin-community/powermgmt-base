@@ -1,0 +1,45 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH ON_AC_POWER 1 "12 March 2018"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n> insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+on_ac_power \- test whether computer is running on AC power
+.SH SYNOPSIS
+.B on_ac_power
+.SH DESCRIPTION
+.B on_ac_power
+checks whether the system is running on abundant power (such as AC mains,
+an USB charger, etc), as opposed to battery power.
+.SH OPTIONS
+None.
+.SH "EXIT STATUS"
+.br
+.nf
+\fB0\fR (true)	System is on mains power
+\fB1\fR (false)	System is not on mains power
+\fB255\fR (false)	Power status could not be determined
+.SH CAVEATS
+The vast majority of desktops and servers have no power sensors, thus
+they return 255 "unknown"; for most purposes you'd want to consider
+this answer to imply mains power \(em note that 255 evaluates as false
+for the shell.
+.P
+This program currently provides only information known to the kernel;
+it doesn't (yet?) query userspace daemons such as nut which may provide
+further information.
+.SH AUTHOR
+This manual page was written by Steve Dodd <steved@loth.demon.co.uk>,
+was updated by Thomas Hood then by Adam Borowski.
